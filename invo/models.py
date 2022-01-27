@@ -16,6 +16,8 @@ class Company(models.Model):
     companyID = models.IntegerField()
     taxNumber = models.CharField(max_length=50)
     logoLocation = models.CharField(max_length=255, null=True, blank=True)
+    def __str__(self):
+        return self.companyName
 
 
 class Customer(models.Model):
@@ -30,6 +32,8 @@ class Customer(models.Model):
     billingAddress2 = models.CharField(max_length=255, null=True, blank=True)
     billingAddress3 = models.CharField(max_length=255, null=True, blank=True)
     taxNumber = models.CharField(max_length=50)
+    def __str__(self):
+        return self.customerName
 
 
 class Invoice(models.Model):
@@ -42,6 +46,12 @@ class Invoice(models.Model):
     createdDate = models.DateTimeField(auto_now_add=True)
     companyID = models.IntegerField()
     note = models.CharField(max_length=2000)
+
+    class Meta:
+        ordering = ('-date', 'invoiceID')
+
+    def __str__(self):
+        return str(self.invoiceID)
 
 
 
@@ -58,6 +68,8 @@ class Invoice(models.Model):
 class TaxCodes(models.Model):
     taxCode = models.CharField(primary_key=True, max_length=20)
     taxPercent = models.DecimalField(max_digits=2, decimal_places=2)
+    def __str__(self):
+        return self.taxCode
 
 
 class InvoiceItem(models.Model):
@@ -67,5 +79,9 @@ class InvoiceItem(models.Model):
     taxCode = models.ManyToManyField(TaxCodes)
     unitPrice = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        #x=self.invoiceID #+ " " + str(self.seq)
+        return str(self.invoiceID.code)  + " / " + str(self.id )
 
 
