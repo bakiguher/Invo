@@ -7,7 +7,7 @@ import django_tables2 as tables
 from django.db.models import Sum
 
 from .tables import CustomerTable, InvoiceItemsTable
-# Create your views here.
+
 
 
 def home(request):
