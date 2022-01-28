@@ -13,6 +13,7 @@ urlpatterns = [
     path('delete_customer/<str:pk>/', views.deleteCustomer, name="delete_customer"),
     
     
+    path('create_invoice/', views.createInvoice, name='create_invoice'),
     
     
     path('delete_invoice_item/<str:pk>/', views.deleteInvoiceItem, name="delete_invoice_item"),

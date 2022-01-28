@@ -2,13 +2,50 @@
 
 {% block content %}
 
-<div >
-    
+<div class="row">
+  <div class="col-md-8">
+    <h5>CUSTOMERS:</h5>
+    <hr />
+    <div>
+      <a
+        class="btn btn-primary btn-sm btn-block"
+        href="{% url 'create_customer' %}"
+        >Create Customer</a
+      >
+      <div>Total Customers: {{ total_customers }}</div>
+      <table class="table table-sm">
+        <tr>
+          
+          <th></th>
+               
+          <th>Customer</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Tax Nr</th>
 
-    {% load django_tables2 %}
-    {% render_table table %}
 
+        </tr>
 
-  
+        {% for customer in customers %}
+        <tr>
+          <td>
+            <a
+              class="btn btn-sm btn-info"
+              href="{% url 'customer' customer.customerID %}"
+              >View</a
+            >
+          </td>
+          <td>{{customer.customerName}}</td>
+          <td>{{customer.email}}</td>
+          <td>{{customer.phone}}</td>
+          <td>{{customer.billingAddress1}} {{customer.billingAddress2}} {{customer.billingAddress3}}</td>
+          <td>{{customer.taxNumber}}</td>
+          
+
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
   </div>
   {% endblock %}

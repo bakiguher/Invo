@@ -2,7 +2,7 @@ import sys
 from unicodedata import decimal
 from django.shortcuts import render, redirect
 from . models import Customer, Invoice, InvoiceItem, Company, TaxCodes
-from . forms import CustomerForm, InvoiceItemForm
+from . forms import CustomerForm, InvoiceForm, InvoiceItemForm
 import django_tables2 as tables
 from django.db.models import Sum
 
@@ -12,8 +12,8 @@ from .tables import CustomerTable, InvoiceItemsTable
 
 def home(request):
 
-    customers = Customer.objects.all()
-    invoices = Invoice.objects.all()
+    customers = Customer.objects.all().order_by('customerName')
+    invoices = Invoice.objects.all().order_by('-createdDate')
     total_customers = customers.count()
     context = {'customers': customers, 'invoices': invoices,
                'total_customers': total_customers}
@@ -65,8 +65,16 @@ def deleteCustomer (request,pk):
 
 
 def customers(request):
-    table = CustomerTable(Customer.objects.all())
-    return render(request, 'customers.html', {"table": table})
+    customers = Customer.objects.all()
+    total_customers = customers.count()
+    context = {'customers': customers,
+               'total_customers': total_customers}
+
+    return render(request, 'customers.html', context)
+
+
+    
+
 
 
 def invoice(request, pk):
@@ -87,16 +95,26 @@ def invoice(request, pk):
     #table = InvoiceItemsTable(InvoiceItem.objects.all())
     # return render(request, 'customers.html', {"table": table})
 
+def createInvoice(request):
+    form = InvoiceForm()
 
-def invoiceItems(request, cid):
-    table = InvoiceItemsTable(InvoiceItem.objects.all())
-    return render(request, 'customers.html', {"table": table})
+    if request.method == "POST":
+        form = InvoiceForm(request.POST)
+        if form.is_valid:
+            form.save()
+            z = Invoice.objects.latest('createdDate')
+            y=z.invoiceID
+            return redirect("invoice",y)
+
+    context = {"form": form}
+    return render(request, 'create_invoice.html', context)
+
+
 
 
 def createInvoiceItem(request,invid):
     form = InvoiceItemForm(initial={'invoiceID':invid })
     form.fields['invoiceID'].widget.attrs['hidden'] = 'hidden'
-    #form.fields['invoiceID'].disabled=True
     if request.method == "POST":
         form = InvoiceItemForm(request.POST)
         if form.is_valid:
@@ -106,6 +124,11 @@ def createInvoiceItem(request,invid):
 
     context = {"form": form}
     return render(request, 'create_invoice_item.html', context)
+
+
+def invoiceItems(request, cid):
+    table = InvoiceItemsTable(InvoiceItem.objects.all())
+    return render(request, 'customers.html', {"table": table})
 
 
 def updateinvoiceItem(request,pk):

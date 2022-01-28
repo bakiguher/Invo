@@ -17,6 +17,18 @@ class CustomerForm(ModelForm):
                   )
 
 
+class InvoiceForm(ModelForm):
+    class Meta:
+        model = Invoice
+        fields = ('invoiceID', 'code',
+                  'currencyCode',
+                  'customerID',
+                  'date',
+                  'dueBy',
+                  'companyID',
+                  'note'
+                  )
+
 
 class InvoiceItemForm(ModelForm):
     class Meta:
