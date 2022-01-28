@@ -17,6 +17,19 @@ Frameworks used:
 
 
 Django is a high-level Python framework. It’s free and open source. It works with models, views, forms and urls. 
+I developed the app in virtual enviroment with [virtualenv](https://virtualenv.pypa.io/en/latest/) tool
+
+```
+pip install virtualenv
+virtualenv env
+cd env
+scripts\activate
+django-admin startproject invoice
+Python manage.py startapp invo
+python manage.py runserver
+```
+
+
 Folder structure in vscode:
 
 ![image](https://user-images.githubusercontent.com/7795039/151625296-1bb0cc5a-ffd1-46c3-8360-658e65d36e8d.png)
@@ -24,6 +37,7 @@ Folder structure in vscode:
 Invoice is the name of the project. Invo is the name of an app in the project. Invo app settings are imported by Invoice Project. 
 
 First I created my database models for Customer, Invoice, invoice Item. All the fields if not specified can not be null or blank. It was my first hassle. 
+After creating the model I made the migrations. 
 In urls I defined;
   -create
   -update
