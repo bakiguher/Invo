@@ -1,0 +1,70 @@
+{% extends 'main.html' %} {% block content %}
+
+<div class="col">
+  <hr />
+
+  <div>
+    <table class="table table-dark">
+      <tr>
+        <th>
+          <button type="button" class="btn btn-info">Edit invoice</button>
+        </th>
+
+        <th>{{invoice.code}}</th>
+        <th>Date</th>
+        <th>Due By</th>
+        <th>Sub Total</th>
+      </tr>
+
+      <tr>
+        <td>
+          <button type="button" class="btn btn-danger">Delete Invoice</button>
+        </td>
+        <td>{{customer.customerName}}</td>
+        <td>{{invoice.date}}</td>
+        <td>{{invoice.dueBy}}</td>
+        <td></td>
+      </tr>
+    </table>
+
+    <table class="table table-sm">
+      <tr>
+        <th></th>
+        <th>Description</th>
+        <th>Unit Price</th>
+        <th>Quantity</th>
+        <th>TaxCode</th>
+        <th>Tax</th>
+        <th>Sub Total</th>
+        <th>Total</th>
+      </tr>
+
+      {% for item in invoiceitems %}
+      <tr>
+        <td>
+          <a class="btn btn-sm btn-danger" href="{% url 'delete_invoice_item' item.id %}">Delete</a>
+          <a class="btn btn-sm btn-info" href="{% url 'update_invoice_item' item.id %}">Edit</a>
+          
+          {% comment %} change here {% endcomment %}
+           
+        </td>
+        <td>{{item.itemDescription}}</td>
+        <td>{{item.unitPrice}}</td>
+        <td>{{item.quantity}}</td>
+        <td>% {{item.taxCode}}</td>
+        <td>{{item.tax|floatformat:2}}</td>
+        <td>{{item.subTotal|floatformat:2}}</td>
+        <td>{{item.total|floatformat:2}}</td>
+      </tr>
+      {%endfor%}
+    </table>
+    <a class="btn btn-primary btn-sm btn-block" href="{% url 'create_invoice_item' invoice.invoiceID %}">Add Item</a>
+
+    
+    
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+
+{% endblock %}

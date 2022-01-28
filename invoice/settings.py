@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_tables2',
+    'semanticuiforms',
+    'django_bootstrap5',
+    'django.contrib.humanize',
     'invo',
 ]
 
