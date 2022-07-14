@@ -1,7 +1,7 @@
 # InVo
-#### Video Demo:  https://youtu.be/6ReWyM_WCl4
-#### Description:
 
+#### Description:
+This is my CS50x final project. I used django and bootstrap. 
 
 
 **InVo** is an invoicing app with following features
@@ -116,16 +116,10 @@ templates for invoices
 ---
 **Requirements**
 ```
-asgiref==3.5.0 
-autopep8==1.6.0 
-beautifulsoup4==4.10.0 
+
 Django==4.0.1 
 django-bootstrap5==21.3
 django-semanticui-forms==1.6.5
 django-tables2==2.4.1
-pycodestyle==2.8.0
-soupsieve==2.3.1
-sqlparse==0.4.2
-toml==0.10.2
-tzdata==2021.5
+
 ```
